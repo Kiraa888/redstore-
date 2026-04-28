@@ -1,0 +1,21 @@
+const productsData = [
+    { id: 1, name: "Crimson Runner V1", category: "Sneakers", price: 145.00, rating: 4.8, reviews: 124, image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&auto=format&fit=crop&q=80" },
+    { id: 2, name: "Midnight High-Top", category: "Retro", price: 180.00, rating: 4.2, reviews: 89, image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&auto=format&fit=crop&q=80" },
+    { id: 3, name: "Urban Velocity", category: "Running", price: 135.00, rating: 4.6, reviews: 210, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&auto=format&fit=crop&q=80" },
+    { id: 4, name: "Street Classic White", category: "Sneakers", price: 110.00, rating: 4.5, reviews: 340, image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&auto=format&fit=crop&q=80" },
+    { id: 5, name: "Neon Strike", category: "Running", price: 155.00, rating: 4.9, reviews: 45, image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=600&auto=format&fit=crop&q=80" },
+    { id: 6, name: "Retro Blazer '89", category: "Retro", price: 195.00, rating: 4.7, reviews: 312, image: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=600&auto=format&fit=crop&q=80" },
+    { id: 7, name: "Shadow Phantom", category: "Sneakers", price: 160.00, rating: 4.4, reviews: 78, image: "https://images.unsplash.com/photo-1550399865-ec7d23b120f0?w=600&auto=format&fit=crop&q=80" },
+    { id: 8, name: "Track Star X", category: "Running", price: 125.00, rating: 4.1, reviews: 156, image: "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=600&auto=format&fit=crop&q=80" },
+    { id: 9, name: "Heritage Court", category: "Retro", price: 140.00, rating: 4.8, reviews: 420, image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&auto=format&fit=crop&q=80" },
+    { id: 10, name: "Oasis Low", category: "Sneakers", price: 95.00, rating: 4.0, reviews: 90, image: "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&auto=format&fit=crop&q=80" },
+    { id: 11, name: "Aero Glide", category: "Running", price: 175.00, rating: 4.9, reviews: 201, image: "https://images.unsplash.com/photo-1539185441755-769473a23570?w=600&auto=format&fit=crop&q=80" },
+    { id: 12, name: "Vintage High", category: "Retro", price: 210.00, rating: 4.6, reviews: 88, image: "https://images.unsplash.com/photo-1521774971864-62e842046145?w=600&auto=format&fit=crop&q=80" },
+    { id: 13, name: "Eclipse Runner", category: "Running", price: 165.00, rating: 4.3, reviews: 115, image: "https://images.unsplash.com/photo-1542280282-14c194a218d6?w=600&auto=format&fit=crop&q=80" },
+    { id: 14, name: "Lunar Step", category: "Sneakers", price: 130.00, rating: 4.7, reviews: 299, image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=600&auto=format&fit=crop&q=80" },
+    { id: 15, name: "Classic Gum Sole", category: "Retro", price: 115.00, rating: 4.5, reviews: 170, image: "https://images.unsplash.com/photo-1509506489701-cfe29c7b07d6?w=600&auto=format&fit=crop&q=80" },
+    { id: 16, name: "Pulse Boost", category: "Running", price: 190.00, rating: 4.8, reviews: 50, image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&auto=format&fit=crop&q=80" },
+    { id: 17, name: "Cobalt Street", category: "Sneakers", price: 145.00, rating: 4.4, reviews: 210, image: "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=600&auto=format&fit=crop&q=80" },
+    { id: 18, name: "Sunset Retro", category: "Retro", price: 165.00, rating: 4.7, reviews: 95, image: "https://images.unsplash.com/photo-1562183241-b937e95585b6?w=600&auto=format&fit=crop&q=80" },
+    { id: 19, name: "Velocity Max", category: "Running", price: 205.00, rating: 5.0, reviews: 31, image: "https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=600&auto=format&fit=crop&q=80" }
+];
