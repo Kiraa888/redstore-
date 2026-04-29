@@ -1,7 +1,7 @@
 const productsData = [
     { id: 1, name: "Crimson Runner V1", category: "Sneakers", price: 145.00, rating: 4.8, reviews: 124, image: "https://iili.io/Biw0D5G.png" },
     { id: 2, name: "Midnight High-Top", category: "Retro", price: 180.00, rating: 4.2, reviews: 89, image: "https://iili.io/BiwVNS9.png" },
-    { id: 3, name: "Urban Velocity", category: "Running", price: 135.00, rating: 4.6, reviews: 210, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&auto=format&fit=crop&q=80" },
+    { id: 3, name: "Urban Velocity", category: "Running", price: 135.00, rating: 4.6, reviews: 210, image: "https://iili.io/BiwVwc7.png" },
     { id: 4, name: "Street Classic White", category: "Sneakers", price: 110.00, rating: 4.5, reviews: 340, image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&auto=format&fit=crop&q=80" },
     { id: 5, name: "Neon Strike", category: "Running", price: 155.00, rating: 4.9, reviews: 45, image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=600&auto=format&fit=crop&q=80" },
     { id: 6, name: "Retro Blazer '89", category: "Retro", price: 195.00, rating: 4.7, reviews: 312, image: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=600&auto=format&fit=crop&q=80" },
