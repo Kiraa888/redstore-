@@ -1,0 +1,21 @@
+const productsData = [
+    { id: 1, name: "Crimson Runner V1", category: "Sneakers", price: 145.00, rating: 4.8, reviews: 124, image: "https://iili.io/Biw0D5G.png" },
+    { id: 2, name: "Midnight High-Top", category: "Retro", price: 180.00, rating: 4.2, reviews: 89, image: "https://iili.io/BiwVNS9.png" },
+    { id: 3, name: "Urban Velocity", category: "Running", price: 135.00, rating: 4.6, reviews: 210, image: "https://iili.io/BiwVwc7.png" },
+    { id: 4, name: "Street Classic White", category: "Sneakers", price: 110.00, rating: 4.5, reviews: 340, image: "https://iili.io/BiwhkAX.png" },
+    { id: 5, name: "Neon Strike", category: "Running", price: 155.00, rating: 4.9, reviews: 45, image: "https://iili.io/Biwe9hF.png" },
+    { id: 6, name: "Retro Blazer '89", category: "Retro", price: 195.00, rating: 4.7, reviews: 312, image: "https://iili.io/Biw0D5G.png" },
+    { id: 7, name: "Shadow Phantom", category: "Sneakers", price: 160.00, rating: 4.4, reviews: 78, image: "https://iili.io/BiwhkAX.png" },
+    { id: 8, name: "Track Star X", category: "Running", price: 125.00, rating: 4.1, reviews: 156, image: "https://iili.io/BiwVwc7.png" },
+    { id: 9, name: "Heritage Court", category: "Retro", price: 140.00, rating: 4.8, reviews: 420, image: "https://iili.io/Biwe9hF.png" },
+    { id: 10, name: "Oasis Low", category: "Sneakers", price: 95.00, rating: 4.0, reviews: 90, image: "https://iili.io/Biw0D5G.png" },
+    { id: 11, name: "Aero Glide", category: "Running", price: 175.00, rating: 4.9, reviews: 201, image: "https://iili.io/Biwe9hF.png" },
+    { id: 12, name: "Vintage High", category: "Retro", price: 210.00, rating: 4.6, reviews: 88, image: "https://iili.io/BiwVNS9.png" },
+    { id: 13, name: "Eclipse Runner", category: "Running", price: 165.00, rating: 4.3, reviews: 115, image: "https://iili.io/Biwe9hF.png" },
+    { id: 14, name: "Lunar Step", category: "Sneakers", price: 130.00, rating: 4.7, reviews: 299, image: "https://iili.io/Biw0D5G.png" },
+    { id: 15, name: "Classic Gum Sole", category: "Retro", price: 115.00, rating: 4.5, reviews: 170, image: "https://iili.io/BiwhkAX.png" },
+    { id: 16, name: "Pulse Boost", category: "Running", price: 190.00, rating: 4.8, reviews: 50, image: "https://iili.io/BiwVNS9.png" },
+    { id: 17, name: "Cobalt Street", category: "Sneakers", price: 145.00, rating: 4.4, reviews: 210, image: "https://iili.io/BiwVwc7.png" },
+    { id: 18, name: "Sunset Retro", category: "Retro", price: 165.00, rating: 4.7, reviews: 95, image: "https://iili.io/Biw0D5G.png" },
+    { id: 19, name: "Velocity Max", category: "Running", price: 205.00, rating: 5.0, reviews: 31, image: "https://iili.io/BiwVNS9.png" }
+];
