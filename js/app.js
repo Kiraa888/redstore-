@@ -114,7 +114,7 @@ function buildWhatsAppMessage(orderData) {
     return encodeURIComponent(message);
 }
 
-// --- RENDERING FUNCTIONS ---
+// --- RENDERING FUNCTIONS (unchanged from original, but we keep them) ---
 const renderProducts = () => {
     const filtered = productsData.filter(p => {
         const matchCat = state.filter.category === "All" || p.category === state.filter.category;
@@ -147,18 +147,12 @@ const renderProducts = () => {
         `;
     }).join('');
 
-    // Apply tilt effect with performance optimization
-    if (typeof VanillaTilt !== 'undefined') {
-        document.querySelectorAll('.product-card').forEach(card => {
-            VanillaTilt.init(card, { 
-                max: 5, 
-                speed: 200, 
-                glare: true, 
-                'max-glare': 0.15,
-                gyroscope: false // Disable for performance
-            });
-        });
-    }
+    // Re-apply Vanilla Tilt
+    document.querySelectorAll('.product-card').forEach(card => {
+        if (typeof VanillaTilt !== 'undefined') {
+            VanillaTilt.init(card, { max: 8, speed: 300, glare: true, 'max-glare': 0.2 });
+        }
+    });
 };
 
 const renderCartUI = () => {
@@ -172,7 +166,7 @@ const renderCartUI = () => {
 
     DOM.cartItems.innerHTML = state.cart.map(item => `
         <div class="cart-item" data-id="${item.id}">
-            <div class="cart-item-image"><img src="${item.image}" alt="${item.name}" loading="lazy"></div>
+            <div class="cart-item-image"><img src="${item.image}" alt="${item.name}"></div>
             <div style="flex: 1;">
                 <div style="display: flex; justify-content: space-between;">
                     <strong>${item.name}</strong>
@@ -205,7 +199,7 @@ const renderWishlistUI = () => {
 
     DOM.wishlistItems.innerHTML = wishlistProducts.map(item => `
         <div class="cart-item">
-            <div class="cart-item-image"><img src="${item.image}" alt="${item.name}" loading="lazy"></div>
+            <div class="cart-item-image"><img src="${item.image}" alt="${item.name}"></div>
             <div style="flex: 1;">
                 <div style="display: flex; justify-content: space-between;">
                     <strong>${item.name}</strong>
@@ -222,7 +216,7 @@ const renderModal = (product) => {
     const sizes = [7, 8, 9, 10, 11, 12];
     DOM.modalBody.innerHTML = `
         <div class="modal-img-container">
-            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            <img src="${product.image}" alt="${product.name}">
         </div>
         <div class="modal-details">
             <span class="product-category">${product.category}</span>
@@ -320,7 +314,7 @@ function renderCheckoutStep(step) {
             state.checkout.orderId = orderId;
             const itemsHTML = cart.map(item => `
                 <div class="order-item">
-                    <img src="${item.image}" alt="${item.name}" width="50" height="50" loading="lazy" />
+                    <img src="${item.image}" alt="${item.name}" width="50" height="50" />
                     <div><strong>${item.name}</strong> (${item.size || 'N/A'}) × ${item.quantity} <span style="color:var(--primary-color);">${formatPrice(item.price * item.quantity)}</span></div>
                 </div>
             `).join('');
@@ -372,6 +366,7 @@ function renderCheckoutStep(step) {
         document.querySelectorAll('input[name="payment"]').forEach(el => {
             el.addEventListener('change', (e) => {
                 state.checkout.payment = e.target.value;
+                // update UI selection
                 document.querySelectorAll('.payment-option').forEach(opt => opt.classList.toggle('selected', opt.querySelector('input').checked));
             });
         });
@@ -382,6 +377,7 @@ function renderCheckoutStep(step) {
     } else if (step === 4) {
         document.getElementById('checkoutBack4')?.addEventListener('click', () => { state.checkout.step = 3; renderCheckoutStep(3); });
         document.getElementById('placeOrderBtn')?.addEventListener('click', () => {
+            // Place order
             const cart = state.cart;
             const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
             const deliveryCharge = 0;
@@ -398,9 +394,12 @@ function renderCheckoutStep(step) {
                 deliveryCharge: deliveryCharge,
                 discount: discount
             };
+            // Store order in localStorage (optional)
             localStorage.setItem('redstore_last_order', JSON.stringify(orderData));
+            // Show success
             closeCheckout();
             showSuccess(orderData);
+            // Clear cart
             state.cart = [];
             saveStorage();
             renderCartUI();
@@ -418,6 +417,8 @@ function showSuccess(orderData) {
     `;
     DOM.successDetails.innerHTML = details;
     DOM.successOverlay.classList.add('active');
+
+    // Store for WhatsApp
     window._lastOrder = orderData;
 }
 
@@ -576,7 +577,7 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
 
 // UI Toggles
 document.getElementById('navSearchBtn').addEventListener('click', () => {
-    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('shop').scrollIntoView();
     document.getElementById('searchInput').focus();
 });
 
@@ -592,9 +593,9 @@ document.getElementById('navWishlistBtn').addEventListener('click', () => {
 });
 document.getElementById('closeWishlistBtn').addEventListener('click', () => DOM.wishlistSidebar.classList.remove('open'));
 
-document.getElementById('shopNowBtn').addEventListener('click', () => document.getElementById('shop').scrollIntoView({ behavior: 'smooth' }));
-document.getElementById('exploreDropsBtn').addEventListener('click', () => document.getElementById('shop').scrollIntoView({ behavior: 'smooth' }));
-document.getElementById('aboutToShopBtn').addEventListener('click', () => document.getElementById('shop').scrollIntoView({ behavior: 'smooth' }));
+document.getElementById('shopNowBtn').addEventListener('click', () => document.getElementById('shop').scrollIntoView());
+document.getElementById('exploreDropsBtn').addEventListener('click', () => document.getElementById('shop').scrollIntoView());
+document.getElementById('aboutToShopBtn').addEventListener('click', () => document.getElementById('shop').scrollIntoView());
 
 // Contact Form
 document.getElementById('contactForm').addEventListener('submit', (e) => {
@@ -606,6 +607,7 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
 // Checkout
 document.getElementById('checkoutBtn').addEventListener('click', openCheckout);
 document.getElementById('closeCheckoutBtn').addEventListener('click', closeCheckout);
+// Close checkout on overlay click
 DOM.checkoutOverlay.addEventListener('click', (e) => {
     if (e.target === DOM.checkoutOverlay) closeCheckout();
 });
@@ -627,146 +629,86 @@ document.getElementById('mobileToggle').addEventListener('click', () => {
     document.getElementById('navLinks').classList.toggle('open');
 });
 
-// --- PERFORMANCE OPTIMIZED INITIALIZATION ---
+// --- INITIALIZATION WITH GSAP, LENIS, SCROLLTRIGGER ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if we should use Lenis (only on https/http, not file://)
-    const isFileProtocol = window.location.protocol === 'file:';
-    
-    if (!isFileProtocol && typeof Lenis !== 'undefined') {
-        try {
-            const lenis = new Lenis({ 
-                duration: 1.0, 
-                smoothWheel: true,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-            });
-            lenis.on('scroll', ScrollTrigger.update);
-            gsap.ticker.add((time) => lenis.raf(time * 1000));
-            gsap.ticker.lagSmoothing(0);
-        } catch (e) {
-            console.log('Lenis not available, using native scroll');
-        }
-    }
+    // 1. Lenis Smooth Scroll
+    const lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
 
-    // GSAP Animations (only if GSAP is loaded)
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
+    // 2. GSAP & ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
 
-        // Hero Animations - only run once on load
-        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.from(".hero-title .line-1", { y: 80, opacity: 0, duration: 0.8, delay: 0.2 })
-          .from(".hero-title .line-2", { y: 80, opacity: 0, duration: 0.8 }, "-=0.6")
-          .from(".hero-subtitle", { y: 30, opacity: 0, duration: 0.6 }, "-=0.4")
-          .from(".hero-desc", { y: 30, opacity: 0, duration: 0.6 }, "-=0.3")
-          .from(".btn-group", { y: 30, opacity: 0, duration: 0.6 }, "-=0.3")
-          .from(".hero-shoe", { scale: 0.8, opacity: 0, rotation: 20, duration: 0.8 }, "-=1");
+    // Hero Animations
+    const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    tl.from(".hero-title .line-1", { y: 100, opacity: 0, duration: 1.2, delay: 0.2 })
+      .from(".hero-title .line-2", { y: 100, opacity: 0, duration: 1.2 }, "-=0.8")
+      .from(".hero-subtitle", { y: 30, opacity: 0, duration: 0.8 }, "-=0.6")
+      .from(".hero-desc", { y: 30, opacity: 0, duration: 0.8 }, "-=0.4")
+      .from(".btn-group", { y: 30, opacity: 0, duration: 0.8 }, "-=0.4")
+      .from(".hero-shoe", { scale: 0.8, opacity: 0, rotation: 20, duration: 1.2 }, "-=1.2")
+      .from(".scroll-hint", { opacity: 0, y: 20, duration: 1 }, "-=0.5");
 
-        // Animate products on scroll with Intersection Observer fallback
-        const productObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    gsap.from(entry.target, {
-                        y: 40,
-                        opacity: 0,
-                        duration: 0.6,
-                        delay: index * 0.05,
-                        ease: "power3.out"
-                    });
-                    productObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        // Observe existing and future product cards
-        const observeProducts = () => {
-            document.querySelectorAll('.product-card:not(.animated)').forEach(card => {
-                card.classList.add('animated');
-                productObserver.observe(card);
-            });
-        };
-
-        // Run initially and after re-renders
-        observeProducts();
-        const originalRender = renderProducts;
-        renderProducts = function() {
-            originalRender();
-            setTimeout(observeProducts, 100);
-        };
-
-        // About section animation
-        gsap.from('.about-grid', {
-            scrollTrigger: { trigger: '.about-grid', start: "top 85%" },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out"
-        });
-
-        // Contact form animation
-        gsap.from('.contact-container', {
-            scrollTrigger: { trigger: '.contact-container', start: "top 85%" },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out"
-        });
-    }
-
-    // Mouse parallax for hero - optimized with requestAnimationFrame
-    let rafId = null;
-    const heroVisual = document.querySelector('.hero-visual');
-    const heroShoe = document.getElementById('heroShoe');
-    const heroGlow = document.querySelector('.hero-glow');
-    
-    if (heroVisual && heroShoe) {
-        heroVisual.addEventListener('mousemove', (e) => {
-            if (rafId) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => {
-                const rect = heroVisual.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width - 0.5;
-                const y = (e.clientY - rect.top) / rect.height - 0.5;
-                if (heroShoe) {
-                    heroShoe.style.transform = `translate(${x * 20}px, ${y * 15}px) rotate(${-15 + x * 3}deg)`;
-                }
-                if (heroGlow) {
-                    heroGlow.style.transform = `translate(${x * 15}px, ${y * 15}px)`;
-                }
-                rafId = null;
-            });
-        });
-    }
-
-    // Navbar scroll behavior - optimized
-    let lastScroll = 0;
-    let ticking = false;
-    const navbar = document.getElementById('navbar');
-    
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const current = window.scrollY;
-                if (current > 100) {
-                    navbar.classList.add('scrolled');
-                    if (current > lastScroll + 10) {
-                        navbar.style.transform = 'translateY(-100%)';
-                    } else if (current < lastScroll - 10) {
-                        navbar.style.transform = 'translateY(0)';
-                    }
-                } else {
-                    navbar.classList.remove('scrolled');
-                    navbar.style.transform = 'translateY(0)';
-                }
-                lastScroll = current;
-                ticking = false;
-            });
-            ticking = true;
-        }
+    // Parallax on mouse move
+    document.querySelector('.hero-visual').addEventListener('mousemove', (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to('.hero-shoe', { x: x * 30, y: y * 20, rotation: -15 + x * 5, duration: 1, ease: "power2.out" });
+        gsap.to('.hero-glow', { x: x * 20, y: y * 20, duration: 1, ease: "power2.out" });
     });
 
-    // Render initial UI
+    // Navbar hide/show on scroll
+    let lastScroll = 0;
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        const current = window.scrollY;
+        if (current > 100) {
+            if (current > lastScroll) navbar.style.transform = 'translateY(-100%)';
+            else navbar.style.transform = 'translateY(0)';
+        } else {
+            navbar.style.transform = 'translateY(0)';
+        }
+        lastScroll = current;
+    });
+
+    // Animate products on scroll
+    gsap.utils.toArray('.product-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: { trigger: card, start: "top 85%", toggleActions: "play none none none" },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            delay: i * 0.05,
+            ease: "power3.out"
+        });
+    });
+
+    // About section animation
+    gsap.from('.about-grid', {
+        scrollTrigger: { trigger: '.about-grid', start: "top 80%" },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+
+    // Contact form animation
+    gsap.from('.contact-container', {
+        scrollTrigger: { trigger: '.contact-container', start: "top 80%" },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+
+    // 3. Render initial UI
     renderCartUI();
     renderWishlistUI();
-    
     // Render products with skeleton
     DOM.grid.innerHTML = Array(4).fill('<div class="skeleton skeleton-card"></div>').join('');
-    setTimeout(() => renderProducts(), 300);
+    setTimeout(() => renderProducts(), 500);
+
+    // 4. Vanilla Tilt on product cards (already applied after render)
 });
